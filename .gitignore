@@ -1,13 +1,10 @@
-modules/*
-themes/*
-!modules/.gitkeep
-!themes/.gitkeep
 vendor
 .env
 public/theme
 public/assets
 public/storage
 public/tmp_assets
+public/json
 storage/media/*
 storage/cache/*
 storage/log/*

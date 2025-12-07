@@ -1,0 +1,199 @@
+.top-title-container {
+    width: 280px;
+    background-color: #6610f2;
+}
+
+.top-title-container a.navbar-brand {
+    color: #FFF;
+}
+
+.navbar-default {
+    padding-top:2px;
+    padding-bottom:3px;
+    background-color: #6610f2;
+}
+
+.navbar-default .navbar-toggler-default {
+    border: 0px !important;
+}
+
+.body-content {
+    height: 100vh;
+}
+
+.sidebar-default {
+    height: 100vh;
+    font-size: 14px;
+    z-index: 1234;
+}
+
+.sidebar-default .nav-sidebar {
+    overflow: hidden;
+    display: block;
+}
+
+.sidebar-default .nav-sidebar:hover {
+    overflow-y: auto;
+    width: 280px;
+}
+
+.page-content {
+    height: calc(100vh - calc(120px + 1.5rem));
+    overflow-y: auto;
+}
+
+.top-content-container .breadcrumb .breadcrumb-item::before,
+.top-content-container .breadcrumb .breadcrumb-item a {
+    color: #FFF;
+    font-size: 12px;
+}
+
+.top-content-container .breadcrumb .breadcrumb-item.active a {
+    text-decoration: none;
+}
+
+.top-content-button-container {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* .sidebar-default ul.nav li a {
+    color:#6610f2;
+} */
+
+.sidebar-default .module-name {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 1rem;
+    letter-spacing: 2px;
+}
+
+.sidebar-default ul.nav li {
+    margin-bottom: 6px;
+}
+
+.sidebar-default ul.nav li .nav-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    color: #220551;
+}
+
+.sidebar-default ul.nav li .nav-link.active,
+.sidebar-default ul.nav li .nav-link:hover {
+    background-color:#e0cffc;
+    color:#520dc2;
+    border-radius: 0px;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+
+.sidebar-default ul.nav li.has-submenu .nav-link .fa-caret-down{
+    margin-left: 10px;
+}
+
+.content-wrapper {
+    width: calc(100% - 280px);
+}
+
+.content-wrapper.minimize {
+    width: calc(100% - 68px);
+}
+
+
+@media screen and (max-width: 799px) {
+    .sidebar-default {
+        display:none !important;
+    }
+    
+    .sidebar-default.show {
+        display:flex !important;
+        position: fixed;
+    }
+
+    .content-wrapper {
+        width: calc(100% - 1.5rem);
+    }
+}
+
+.sidebar-default li .submenu { 
+    list-style: none; 
+    margin:0;
+    padding:0;
+    margin-top:5px;
+    padding-right: 2rem;
+    /* padding-left:2rem; */
+}
+
+.sidebar-default:not(.minimize) li .submenu .nav-link,
+.sidebar-default.minimize:hover li .submenu .nav-link {
+    padding-left: 3rem;
+}
+
+.sidebar-default.minimize {
+    width: 68px;
+    overflow: hidden;
+}
+
+.sidebar-default.minimize .nav-sidebar {
+    overflow: hidden;
+}
+
+.sidebar-default.minimize:hover .nav-sidebar {
+    overflow-y: auto;
+}
+
+.sidebar-default.minimize .module-name {
+    opacity: 0;
+}
+
+.sidebar-default.minimize:hover .module-name {
+    opacity: 1;
+}
+
+.sidebar-default.minimize .top-title-container .app-name,
+.sidebar-default.minimize .submenu,
+.sidebar-default.minimize .fa-caret-down,
+.sidebar-default.minimize .menu-label {
+    display: none;
+}
+
+.sidebar-default.minimize:hover {
+    width: 280px;
+    position: absolute;
+}
+
+.sidebar-default.minimize:hover .top-title-container {
+    width: 280px;
+}
+
+.sidebar-default.minimize:hover .top-title-container .app-name {
+    display: block;
+}
+
+.sidebar-default.minimize:hover ~ .top-title-container.minimize .app-name {
+    width: 280px;
+}
+
+.sidebar-default.minimize:hover ~ .content-wrapper .navbar-default {
+    margin-left: 212px
+}
+.sidebar-default.minimize:hover ~ .content-wrapper{
+    width: calc(100% - 68px);
+    margin-left: 68px
+}
+
+.sidebar-default.minimize:not(:hover) li.nav-item > a {
+    width: 60px;
+}
+
+.sidebar-default.minimize:not(:hover) li.nav-item > a,
+.sidebar-default.minimize:hover .menu-label,
+.sidebar-default.minimize:hover .fa-caret-down,
+.sidebar-default.minimize:hover .submenu.show {
+    display: block;
+}

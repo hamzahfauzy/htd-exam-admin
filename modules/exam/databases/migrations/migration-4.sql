@@ -1,0 +1,5 @@
+ALTER TABLE exam_schedule_user_data 
+ADD COLUMN `status` VARCHAR(100) DEFAULT NULL;
+
+ALTER TABLE exam_schedules 
+ADD COLUMN `token` VARCHAR(100) DEFAULT NULL;

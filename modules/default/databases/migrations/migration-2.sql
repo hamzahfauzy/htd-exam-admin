@@ -1,0 +1,22 @@
+CREATE TABLE profile (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(11) NOT NULL,
+    code VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    address TEXT NOT NULL,
+    gender VARCHAR(100) NOT NULL,
+    phone VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_profile_user_id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE media (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    original_name VARCHAR(100) NOT NULL,
+    created_by INT(11) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_media_created_by FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+);
