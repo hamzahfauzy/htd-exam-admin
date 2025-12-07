@@ -1,0 +1,17 @@
+modules/*
+themes/*
+!modules/.gitkeep
+!themes/.gitkeep
+vendor
+.env
+public/theme
+public/assets
+public/storage
+public/tmp_assets
+storage/media/*
+storage/cache/*
+storage/log/*
+storage/session/*
+!storage/media/.gitkeep
+!storage/session/.gitkeep
+settings.json

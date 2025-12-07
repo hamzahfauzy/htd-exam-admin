@@ -1,0 +1,17 @@
+{
+    "favicon": {
+        "label": "Favicon",
+        "type": "file",
+        "key": "APP_FAVICON"
+    },
+    "logo": {
+        "label": "Logo",
+        "type": "file",
+        "key": "APP_LOGO"
+    },
+    "sidebar_logo": {
+        "label": "Sidebar Logo",
+        "type": "file",
+        "key": "APP_SIDEBAR_LOGO"
+    }
+}
