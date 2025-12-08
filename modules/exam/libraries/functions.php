@@ -69,15 +69,15 @@ function generateQuestionSchedule($schedule_id, $message = true)
         $db->query = "INSERT INTO exam_schedule_user_data (schedule_id, user_id, `data`) VALUES ($schedule_id, $user->id, ?)";
         $db->exec(false, [$data]);
 
-        $parent_path = Utility::parentPath();
-        $json = $parent_path . 'public/json/' . env('APP_PREFIX');
-        if(!file_exists($json))
-        {
-            mkdir($json);
-        }
+        // $parent_path = Utility::parentPath();
+        // $json = $parent_path . 'public/json/' . env('APP_PREFIX');
+        // if(!file_exists($json))
+        // {
+        //     mkdir($json);
+        // }
 
-        $filename = $schedule_id . '-' . $user->id.'.json';
-        file_put_contents($json . '/' . $filename, $data);
+        // $filename = $schedule_id . '-' . $user->id.'.json';
+        // file_put_contents($json . '/' . $filename, $data);
     }
 
     $msg = "$schedule->name generate success\n";

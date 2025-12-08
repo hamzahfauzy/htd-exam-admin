@@ -94,5 +94,5 @@ if($schedule_user_data)
 
     $correction = 1;
 
-    return view('exam/views/schedules/groups/result-detail', compact('schedule_user_data','normalizeAnswers','totalScore','correction'));
+    return view('exam/views/schedules/groups/result-detail', compact('schedule', 'user', 'schedule_user_data','normalizeAnswers','totalScore','correction'));
 }

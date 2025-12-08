@@ -22,6 +22,12 @@ return [
         'icon' => 'fa-fw fa-xl me-2 fa-solid fa-calendar-days',
         'activeState' => 'exam.exam_schedules'
     ],
+    [
+        'label' => 'exam.menu.monitoring',
+        'icon'  => 'fa-fw fa-xl me-2 fa-solid fa-desktop',
+        'route' => routeTo('exam/monitoring'),
+        'activeState' => 'exam.monitoring'
+    ]
     // [
     //     'label' => 'exam.menu.exams',
     //     'icon'  => 'fa-fw fa-xl me-2 fa-solid fa-graduation-cap',

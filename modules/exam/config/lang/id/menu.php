@@ -5,5 +5,6 @@ return [
     'exams' => 'Ujian',
     'groups' => 'Grup',
     'questions' => 'Soal',
-    'schedules' => 'Jadwal'
+    'schedules' => 'Jadwal',
+    'monitoring' => 'Monitoring'
 ];
