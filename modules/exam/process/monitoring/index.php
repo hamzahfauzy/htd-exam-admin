@@ -8,7 +8,7 @@ Page::setTitle("Monitoring");
 
 $today = date('Y-m-d');
 $db = new Database;
-$db->query = "SELECT e.id, e.user_id, e.schedule_id, u.name AS user_name, JSON_UNQUOTE(JSON_EXTRACT(e.logs, '$[last].time')) AS last_time
+$db->query = "SELECT e.id, e.logs, e.user_id, e.schedule_id, u.name AS user_name, JSON_UNQUOTE(JSON_EXTRACT(e.logs, '$[last].time')) AS last_time
                 FROM exam_schedule_user_data e
                 LEFT JOIN users u ON u.id = e.user_id
                 LEFT JOIN exam_schedules exs ON exs.id = e.schedule_id
