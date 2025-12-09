@@ -96,13 +96,18 @@ input[type="radio"] {
         <?php endif ?>
     </div>
     <div class="col-12 col-md-4">
-        <?php if($schedule_user_data->logs): ?>
+        <?php 
+        if($schedule_user_data->logs): 
+            $badges = ['Rendah' => 'bg-success', 'Sedang' => 'bg-warning', 'Tinggi' => 'bg-danger', 'Sangat Tinggi' => 'bg-danger'];
+            $cheating = detectCheating(json_decode(json_encode($schedule_user_data->logs),1));
+        ?>
         <div class="card mb-3">
             <div class="card-header d-flex flex-grow-1 align-items-center">
-                <p class="h4 m-0">Log Aktivitas Peserta</p>
+                <p class="h4 m-0">Log Aktivitas Peserta - <span class="badge <?=$badges[$cheating['risk_level']]?>"><?=$cheating['risk_level']?></span></p>
             </div>
             <div class="card-body" style="max-height:350px;overflow-y:auto;">
-                <?php foreach($schedule_user_data->logs as $log): ?>
+                <?php 
+                foreach($schedule_user_data->logs as $log): ?>
                 <div style="margin-bottom: 15px;">
                     <strong><?=$log->type?></strong> -   
                     <small><?=$log->time?></small>
