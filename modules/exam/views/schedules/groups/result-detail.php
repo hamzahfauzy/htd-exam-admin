@@ -45,7 +45,7 @@ input[type="radio"] {
 }
 </style>
 <h3><?=$user->name?> | <?=$schedule->name?></h3>
-<h4>Nilai : <?=$totalScore?>/<?=count($schedule_user_data->data)?> (<?=($totalScore/count($schedule_user_data->data))*100?>)</h4>
+<h4>Nilai : <?=$totalScore?>/<?=count($schedule_user_data->data)?> (<?=count($schedule_user_data->data) ? ($totalScore/count($schedule_user_data->data))*100: 0?>)</h4>
 <form method="POST">
 <?= csrf_field() ?>
 <div class="row">
