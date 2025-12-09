@@ -139,10 +139,10 @@ function detectCheating(array $logs)
     });
 
     // daftar event yang dianggap "keluar" dari halaman
-    $outEvents = ['tab_blur', 'minimize_or_switch'];
+    $outEvents = ['tab_blur', 'minimize_or_switch', 'exit_attempt','network_update','idle'];
 
     // daftar event yang dianggap "kembali" ke halaman
-    $backEvents = ['tab_focus', 'visible'];
+    $backEvents = ['tab_focus', 'visible','network_update'];
 
     foreach ($logs as $log) {
         $event = $log['type'];
