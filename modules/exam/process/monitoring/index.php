@@ -22,7 +22,7 @@ $db->query = "SELECT e.id, e.logs, e.user_id, e.schedule_id, u.name AS user_name
                 ) x ON x.user_id = e.user_id
                 AND JSON_UNQUOTE(JSON_EXTRACT(e.logs, '$[last].time')) = x.last_time
                 AND exs.start_at LIKE '%$today%'
-                ORDER BY JSON_UNQUOTE(JSON_EXTRACT(e.logs, '$[last].time')) = x.last_time DESC";
+                ORDER BY x.last_time DESC";
 $logs = $db->exec('all');
 
 Page::pushFoot("<script src='".asset('assets/exam/js/script.js')."'></script>");
