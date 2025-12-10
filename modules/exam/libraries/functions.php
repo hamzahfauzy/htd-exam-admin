@@ -237,6 +237,7 @@ function detectCheating(array $logs)
         'visible'            => 0,
         'exit_attempt'       => 2.5,
         'network_update'     => 2.5,
+        'window_resize'     => 2.5,
         'tab_focus'          => 0,
         'sesi_ujian'         => 0,
     ];

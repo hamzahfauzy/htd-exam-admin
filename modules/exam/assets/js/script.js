@@ -1,4 +1,7 @@
-$('.datatable').dataTable({
+$('.datatable').on('draw.dt', function (e, settings, json, xhr) {
+    console.log('draw')
+    document.querySelector('.datatable').parentNode.classList.add('table-responsive')
+}).dataTable({
     // stateSave:true,
     pagingType: 'full_numbers_no_ellipses',
     search: {

@@ -62,7 +62,7 @@ ORDER BY last_time DESC;
 ";
 $logs = $db->exec('all');
 
-Page::pushFoot("<script src='".asset('assets/exam/js/script.js')."'></script>");
+Page::pushFoot("<script src='".asset('assets/exam/js/script.js?v=1.2')."'></script>");
 
 return view('exam/views/monitoring/index', [
     'logs' => $logs

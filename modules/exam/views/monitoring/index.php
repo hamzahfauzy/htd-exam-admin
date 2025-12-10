@@ -3,8 +3,8 @@
 <h4>Monitoring</h4>
 <div class="card mb-3">
     <div class="card-body">
-        <div class="table-responsive table-hover table-sales">
-            <table class="table table-bordered datatable" style="width:100%">
+        <div class="table-hover table-sales overflow-hidden">
+            <table class="table table-striped datatable" style="width:100%">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -22,9 +22,9 @@
                     ?>
                     <tr>
                         <td style="width:1%"><?=$index+1?></td>
-                        <td><?=$log->user_name?></td>
-                        <td><?=$log->last_time?></td>
-                        <td><span class="badge <?=$badges[$cheating['risk_level']]?>"><?=$cheating['risk_level']?></span></td>
+                        <td class="text-nowrap"><?=$log->user_name?></td>
+                        <td class="text-nowrap"><?=$log->last_time?></td>
+                        <td class="text-nowrap"><span class="badge <?=$badges[$cheating['risk_level']]?>"><?=$cheating['risk_level']?></span></td>
                         <td>
                             <a href="<?=routeTo('exam/schedules/groups/result-detail', ['schedule_id' => $log->schedule_id, 'user_id'=>$log->user_id])?>" class="btn btn-primary btn-sm">Detail</a>
                         </td>
