@@ -22,7 +22,7 @@
                     <?php 
                     $badges = ['Tidak Curang' => 'bg-secondary', 'Rendah' => 'bg-success', 'Sedang' => 'bg-warning', 'Tinggi' => 'bg-danger', 'Sangat Tinggi' => 'bg-danger'];
                     foreach($member as $index => $user): 
-                        $cheating = detectCheating(json_decode($user->logs ?? [],1));
+                        $cheating = detectCheating($user->logs ? json_decode($user->logs,1) : []);
                     ?>
                     <tr>
                         <td><?=$index+1?></td>
