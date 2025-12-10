@@ -16,7 +16,7 @@
                 </thead>
                 <tbody>
                     <?php 
-                    $badges = ['Rendah' => 'bg-success', 'Sedang' => 'bg-warning', 'Tinggi' => 'bg-danger', 'Sangat Tinggi' => 'bg-danger'];
+                    $badges = ['Tidak Curang' => 'bg-secondary', 'Rendah' => 'bg-success', 'Sedang' => 'bg-warning', 'Tinggi' => 'bg-danger', 'Sangat Tinggi' => 'bg-danger'];
                     foreach($logs as $index => $log): 
                         $cheating = detectCheating(json_decode($log->logs,1));
                     ?>

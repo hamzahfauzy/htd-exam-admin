@@ -98,7 +98,7 @@ input[type="radio"] {
     <div class="col-12 col-md-4">
         <?php 
         if($schedule_user_data->logs): 
-            $badges = ['Rendah' => 'bg-success', 'Sedang' => 'bg-warning', 'Tinggi' => 'bg-danger', 'Sangat Tinggi' => 'bg-danger'];
+            $badges = ['Tidak Curang' => 'bg-secondary', 'Rendah' => 'bg-success', 'Sedang' => 'bg-warning', 'Tinggi' => 'bg-danger', 'Sangat Tinggi' => 'bg-danger'];
             $cheating = detectCheating(json_decode(json_encode($schedule_user_data->logs),1));
         ?>
         <div class="card mb-3">

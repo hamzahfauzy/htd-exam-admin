@@ -127,77 +127,176 @@ function parseSoal($text, $num_of_options = 5) {
     return $soalList;
 }
 
+// function detectCheating(array $logs)
+// {
+//     $blurTime = null;
+//     $idleTime = null;
+//     $incidents = [];
+//     $totalDuration = 0;
+//     $totalIdleDuration = 0;
+
+//     // urutkan berdasarkan waktu
+//     usort($logs, function ($a, $b) {
+//         return strtotime($a['time']) <=> strtotime($b['time']);
+//     });
+
+//     // daftar event yang dianggap "keluar" dari halaman
+//     $outEvents = ['tab_blur', 'minimize_or_switch', 'exit_attempt','network_update','idle'];
+
+//     // daftar event yang dianggap "kembali" ke halaman
+//     $backEvents = ['tab_focus', 'visible','network_update'];
+
+//     foreach ($logs as $log) {
+//         $event = $log['type'];
+//         $time  = strtotime($log['time']);
+
+//         // Jika event keluar halaman → mulai track
+//         if (in_array($event, $outEvents)) {
+//             if (!$blurTime) {
+//                 $blurTime = $time;
+//             }
+//         }
+
+//         // Jika event kembali → tutup track
+//         if (in_array($event, $backEvents)) {
+//             if ($blurTime) {
+//                 $duration = $time - $blurTime;
+
+//                 if ($duration > 0) {
+//                     $incidents[] = [
+//                         'start'    => date('Y-m-d H:i:s', $blurTime),
+//                         'end'      => date('Y-m-d H:i:s', $time),
+//                         'duration' => $duration
+//                     ];
+//                     $totalDuration += $duration;
+//                 }
+
+//                 $blurTime = null;
+//             }
+//         }
+
+//         // ---- HANDLE IDLE ----
+//         if ($event === 'idle') {
+//             $idleTime = $time;
+//         }
+
+//         // Idle selesai ketika event lain muncul
+//         if ($idleTime && $event !== 'idle') {
+//             $duration = $time - $idleTime;
+
+//             if ($duration >= 60) { // AFK minimum 1 menit
+//                 $idleIncidents[] = [
+//                     'start' => date('Y-m-d H:i:s', $idleTime),
+//                     'end'   => date('Y-m-d H:i:s', $time),
+//                     'duration' => $duration
+//                 ];
+//                 $totalIdleDuration += $duration;
+//             }
+
+//             $idleTime = null;
+//         }
+//     }
+
+//     // jika ujian berakhir dalam keadaan blur, bisa dianggap 1 pelanggaran tambahan
+//     // Optional: abaikan atau tambahkan logika di sini
+
+//     $count = count($incidents);
+
+//     // Rumus skor kecurangan
+//     $score = ($count * 10) + ($totalDuration / 2);
+
+//     // kategori risiko
+//     if($score <= 8){
+//         $risk = "Tidak Curang";
+//     } else if ($score <= 20) {
+//         $risk = "Rendah";
+//     } elseif ($score <= 40) {
+//         $risk = "Sedang";
+//     } elseif ($score <= 70) {
+//         $risk = "Tinggi";
+//     } else {
+//         $risk = "Sangat Tinggi";
+//     }
+
+//     return [
+//         'total_incidents' => $count,
+//         'total_duration'  => $totalDuration,
+//         'score'           => $score,
+//         'risk_level'      => $risk,
+//         'details'         => $incidents
+//     ];
+// }
+
 function detectCheating(array $logs)
 {
-    $blurTime = null;
-    $incidents = [];
-    $totalDuration = 0;
+    // Weighting
+    $weights = [
+        'idle'               => 0.005,
+        'tab_blur'           => 2.5,
+        'minimize_or_switch' => 2.5,
+        'visible'            => 0,
+        'exit_attempt'       => 2.5,
+        'network_update'     => 2.5,
+        'tab_focus'          => 0,
+        'sesi_ujian'         => 0,
+    ];
 
-    // urutkan berdasarkan waktu
-    usort($logs, function ($a, $b) {
-        return strtotime($a['time']) <=> strtotime($b['time']);
-    });
+    $totalScore = 0;
+    $idleCount = 0;
+    $totalLogs = count($logs);
 
-    // daftar event yang dianggap "keluar" dari halaman
-    $outEvents = ['tab_blur', 'minimize_or_switch', 'exit_attempt','network_update','idle'];
+    // Hitung score dasar
+    for ($i = 0; $i < $totalLogs; $i++) {
+        $type = $logs[$i]['type'];
 
-    // daftar event yang dianggap "kembali" ke halaman
-    $backEvents = ['tab_focus', 'visible','network_update'];
-
-    foreach ($logs as $log) {
-        $event = $log['type'];
-        $time  = strtotime($log['time']);
-
-        // Jika event keluar halaman → mulai track
-        if (in_array($event, $outEvents)) {
-            if (!$blurTime) {
-                $blurTime = $time;
-            }
+        if (isset($weights[$type])) {
+            $totalScore += $weights[$type];
         }
 
-        // Jika event kembali → tutup track
-        if (in_array($event, $backEvents)) {
-            if ($blurTime) {
-                $duration = $time - $blurTime;
+        // if ($type === 'idle') {
+        //     $idleCount++;
+        // }
+    }
 
-                if ($duration > 0) {
-                    $incidents[] = [
-                        'start'    => date('Y-m-d H:i:s', $blurTime),
-                        'end'      => date('Y-m-d H:i:s', $time),
-                        'duration' => $duration
-                    ];
-                    $totalDuration += $duration;
-                }
+    // ---- EXTRA RULES ----
+    $idleRatio = $idleCount / max(1, $totalLogs);
 
-                $blurTime = null;
+    // Idle sangat dominan → tetap mencurigakan
+    // if ($idleRatio > 0.75) {
+    //     $totalScore += 4; // penalti sedang
+    // } elseif ($idleRatio > 0.50) {
+    //     $totalScore += 2; // penalti kecil
+    // }
+
+    // Deteksi idle berturut-turut
+    $consecutiveIdle = 0;
+    for ($i = 0; $i < $totalLogs; $i++) {
+        if ($logs[$i]['type'] === 'idle') {
+            $consecutiveIdle++;
+            if ($consecutiveIdle >= 3) {
+                $totalScore += 0.005; // penalti tambahan
             }
+        } else {
+            $consecutiveIdle = 0;
         }
     }
 
-    // jika ujian berakhir dalam keadaan blur, bisa dianggap 1 pelanggaran tambahan
-    // Optional: abaikan atau tambahkan logika di sini
-
-    $count = count($incidents);
-
-    // Rumus skor kecurangan
-    $score = ($count * 10) + ($totalDuration / 2);
-
-    // kategori risiko
-    if ($score <= 20) {
-        $risk = "Rendah";
-    } elseif ($score <= 40) {
-        $risk = "Sedang";
-    } elseif ($score <= 70) {
-        $risk = "Tinggi";
+    // Konversi interpretasi risiko
+    if ($totalScore == 0) {
+        $level = "Tidak Curang";
+    } elseif ($totalScore < 3) {
+        $level = "Rendah";
+    } elseif ($totalScore < 7) {
+        $level = "Sedang";
     } else {
-        $risk = "Sangat Tinggi";
+        $level = "Tinggi";
     }
 
     return [
-        'total_incidents' => $count,
-        'total_duration'  => $totalDuration,
-        'score'           => $score,
-        'risk_level'      => $risk,
-        'details'         => $incidents
+        "score" => $totalScore,
+        "risk_level" => $level,
+        "idle_ratio" => round($idleRatio, 2),
+        "idle_count" => $idleCount,
+        "total_logs" => $totalLogs
     ];
 }
