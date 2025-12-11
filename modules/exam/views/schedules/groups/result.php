@@ -23,11 +23,12 @@
                     $badges = ['Tidak Curang' => 'bg-secondary', 'Rendah' => 'bg-success', 'Sedang' => 'bg-warning', 'Tinggi' => 'bg-danger', 'Sangat Tinggi' => 'bg-danger'];
                     foreach($member as $index => $user): 
                         $cheating = detectCheating($user->logs ? json_decode($user->logs,1) : []);
+                        $score = $user->final_score ?? 0;
                     ?>
                     <tr>
                         <td><?=$index+1?></td>
                         <td><?=$user->name?></td>
-                        <td><?=$user->final_score?ceil($user->final_score):'<i>Belum ada nilai</i>'?></td>
+                        <td><?=$user->answer_status?ceil($score):'<i>Belum ada nilai</i>'?></td>
                         <td class="text-nowrap"><span class="badge <?=$badges[$cheating['risk_level']]?>"><?=$cheating['risk_level']?></span></td>
                         <td><?=$user->status??'-'?></td>
                         <td>
