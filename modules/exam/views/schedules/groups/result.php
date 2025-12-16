@@ -32,8 +32,10 @@
                         <td class="text-nowrap"><span class="badge <?=$badges[$cheating['risk_level']]?>"><?=$cheating['risk_level']?></span></td>
                         <td><?=$user->status??'-'?></td>
                         <td>
+                            <?php if($user->answer_correction || $user->status): ?>
+                            <a href="<?=routeTo('exam/schedules/groups/result-detail',['user_id' => $user->id, 'schedule_id' => $user->schedule_id])?>" class="btn btn-info"><i class="fa fa-eye"></i> Detail</a>
+                            <?php endif ?>
                             <?php if($user->status): ?>
-                                <a href="<?=routeTo('exam/schedules/groups/result-detail',['user_id' => $user->id, 'schedule_id' => $user->schedule_id])?>" class="btn btn-info"><i class="fa fa-eye"></i> Detail</a>
                                 <?php if(is_allowed(parsePath(routeTo('exam/schedules/groups/reset')), auth()->id)): ?>
                                 <a href="<?=routeTo('exam/schedules/groups/reset',['user_id' => $user->id, 'schedule_id' => $user->schedule_id])?>" class="btn btn-warning" onclick="if(confirm('Apakah anda yakin akan mereset ujian pada siswa ini ?')){ return true }else{ return false }">Reset</a>
                                 <?php endif ?>

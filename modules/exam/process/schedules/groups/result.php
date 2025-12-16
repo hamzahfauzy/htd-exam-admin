@@ -40,6 +40,9 @@ $db->query = "SELECT
                     exam_schedules.id schedule_id,
                     exam_schedule_user_data.status `status`,
                     CASE WHEN exam_schedule_user_data.answers IS NOT NULL THEN 'OK' else 'NOT OK' END answer_status,
+                    (
+                        SELECT COUNT(*) FROM exam_member_answers WHERE exam_member_answers.user_id = users.id AND exam_member_answers.schedule_id = exam_schedules.id
+                    ) AS answer_correction,
                     exam_schedule_user_data.logs,
                     ((SELECT SUM(score) FROM exam_member_answers WHERE exam_member_answers.user_id = users.id AND exam_member_answers.schedule_id = exam_schedules.id)/exam_schedules.question_showed)*100 as final_score
                 FROM 
