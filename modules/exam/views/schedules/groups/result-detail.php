@@ -78,7 +78,7 @@ input[type="radio"] {
                     if(empty($data->answers))
                     {
                         $correction = !isset($normalizeAnswers[$data->id]) || $normalizeAnswers[$data->id]->score == NULL ? $correction*0 : $correction*1;
-                        echo isset($normalizeAnswers[$data->id]) ? "<b>JAWABAN : </b>".html_entity_decode(htmlspecialchars($normalizeAnswers[$data->id]->answer_id, ENT_QUOTES, 'UTF-8')) . '<br><br>' . ($normalizeAnswers[$data->id]?->score == null ? '<input type="number" class="form-control" name="score['.$data->id.']" value="0" step=".1" min="0" max="1">' : ($normalizeAnswers[$data->id]?->score != '0' ? '<span class="badge bg-success">Skor : '.$normalizeAnswers[$data->id]?->score.'</span>' : '<span class="badge bg-danger">Skor : 0</span>') ) : '';
+                        echo isset($normalizeAnswers[$data->id]) ? "<b>JAWABAN : </b>".(substr($normalizeAnswers[$data->id]->answer_id, 4, 3) == 'img' ? html_entity_decode($normalizeAnswers[$data->id]->answer_id) : html_entity_decode(htmlspecialchars($normalizeAnswers[$data->id]->answer_id, ENT_QUOTES, 'UTF-8'))) . '<br><br>' . ($normalizeAnswers[$data->id]?->score == null ? '<input type="number" class="form-control" name="score['.$data->id.']" value="0" step=".1" min="0" max="1">' : ($normalizeAnswers[$data->id]?->score != '0' ? '<span class="badge bg-success">Skor : '.$normalizeAnswers[$data->id]?->score.'</span>' : '<span class="badge bg-danger">Skor : 0</span>') ) : '';
                     }
                     else
                     {
